@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jinho Joo | MRI Reconstruction Researcher</title>
+<meta name="description" content="Jinho Joo, Ph.D. student at Yonsei University working on AI-driven MRI reconstruction and quantitative MRI.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧲</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F9FB;
+    --surface: #FFFFFF;
+    --ink: #13233F;
+    --muted: #5B6778;
+    --line: #DDE3EB;
+    --azure: #1F6FEB;
+    --azure-soft: #E5EFFE;
+    --mask: #1F6FEB;
+    --serif: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+    --sans: "IBM Plex Sans", -apple-system, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0E1624; --surface: #152033; --ink: #E6ECF5; --muted: #98A4B6;
+      --line: #26344B; --azure: #6AA4FF; --azure-soft: #1A2B47; --mask: #6AA4FF;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0E1624; --surface: #152033; --ink: #E6ECF5; --muted: #98A4B6;
+    --line: #26344B; --azure: #6AA4FF; --azure-soft: #1A2B47; --mask: #6AA4FF;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--sans); font-size: 16px; line-height: 1.6;
+  }
+  a { color: var(--azure); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--azure); outline-offset: 3px; border-radius: 2px; }
+
+  /* ---------- Hero with k-space mask ---------- */
+  .hero { position: relative; border-bottom: 1px solid var(--line); overflow: hidden; }
+  .kspace { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .16; pointer-events: none; }
+  .hero-inner {
+    position: relative; max-width: 1040px; margin: 0 auto;
+    padding: 72px 24px 56px; display: grid; grid-template-columns: 168px 1fr; gap: 40px; align-items: end;
+  }
+  .photo {
+    width: 168px; height: 200px; object-fit: cover; object-position: center 20%;
+    border-radius: 4px; border: 1px solid var(--line); background: var(--surface); display: block;
+  }
+  h1 {
+    font-family: var(--serif); font-weight: 500; font-size: clamp(2.6rem, 6vw, 4.2rem);
+    line-height: 1; letter-spacing: -0.02em; margin: 0 0 14px;
+  }
+  .korean { font-family: var(--sans); font-size: .38em; font-weight: 400; color: var(--muted); letter-spacing: 0; margin-left: .4em; vertical-align: middle; }
+  .role { font-size: 1.15rem; margin: 0 0 18px; max-width: 58ch; }
+  .role strong { font-weight: 600; }
+  .contact { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 0; padding: 0; list-style: none; font-size: .95rem; }
+  .contact li { display: flex; align-items: center; gap: 7px; color: var(--muted); }
+  .contact svg { width: 16px; height: 16px; flex: none; }
+  .cv-btn {
+    display: inline-block; margin-top: 22px; padding: 8px 16px; border: 1px solid var(--azure);
+    border-radius: 4px; font-weight: 500; font-size: .95rem; background: var(--surface);
+  }
+  .cv-btn:hover { background: var(--azure-soft); text-decoration: none; }
+
+  /* ---------- Main layout ---------- */
+  main { max-width: 1040px; margin: 0 auto; padding: 16px 24px 80px; }
+  section { display: grid; grid-template-columns: 168px 1fr; gap: 40px; padding: 44px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: 0; }
+  h2 { font-family: var(--serif); font-weight: 500; font-size: 1.35rem; margin: 0; line-height: 1.3; }
+  .body { max-width: 70ch; }
+  .body > p:first-child { margin-top: 0; }
+  p { margin: 0 0 1em; }
+
+  .interests { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; }
+  .interests li { padding: 4px 12px; border-radius: 999px; background: var(--azure-soft); color: var(--ink); font-size: .9rem; }
+
+  /* Timeline entries */
+  .entry { margin-bottom: 30px; }
+  .entry:last-child { margin-bottom: 0; }
+  .entry-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  .entry h3 { font-size: 1.05rem; font-weight: 600; margin: 0; }
+  .when { color: var(--muted); font-size: .9rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .sub { color: var(--muted); margin: 2px 0 10px; }
+  .entry ul { margin: 0; padding-left: 1.1em; }
+  .entry li { margin-bottom: 6px; }
+  .entry li::marker { color: var(--azure); }
+
+  /* Publications */
+  .pubs { list-style: none; margin: 0; padding: 0; }
+  .pub { display: grid; grid-template-columns: 96px 1fr; gap: 18px; padding: 18px 0; border-top: 1px solid var(--line); }
+  .pub:first-child { border-top: 0; padding-top: 0; }
+  .venue {
+    align-self: start; text-align: center; font-size: .82rem; font-weight: 600; line-height: 1.25;
+    padding: 6px 4px; border-radius: 4px; border: 1px solid var(--line); color: var(--muted);
+  }
+  .venue.top { background: var(--azure); border-color: var(--azure); color: var(--surface); }
+  .venue.prep { border-style: dashed; font-weight: 500; }
+  .pub-title { font-weight: 600; margin: 0 0 4px; line-height: 1.4; }
+  .pub-title .acr { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--azure); }
+  .authors { margin: 0 0 6px; color: var(--muted); font-size: .95rem; }
+  .authors b { color: var(--ink); font-weight: 600; }
+  .desc { margin: 0; font-size: .95rem; }
+
+  dl.skills { display: grid; grid-template-columns: max-content 1fr; gap: 10px 24px; margin: 0; }
+  dl.skills dt { font-weight: 600; }
+  dl.skills dd { margin: 0; color: var(--muted); }
+
+  footer { max-width: 1040px; margin: 0 auto; padding: 24px; color: var(--muted); font-size: .85rem; border-top: 1px solid var(--line); }
+
+  .theme-toggle {
+    position: absolute; top: 18px; right: 20px; z-index: 2; background: var(--surface); color: var(--ink);
+    border: 1px solid var(--line); border-radius: 999px; width: 36px; height: 36px; cursor: pointer; display: grid; place-items: center;
+  }
+
+  @media (max-width: 760px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 24px; padding: 64px 20px 40px; }
+    .photo { width: 128px; height: 152px; }
+    main { padding: 0 20px 64px; }
+    section { grid-template-columns: 1fr; gap: 16px; padding: 36px 0; }
+    .pub { grid-template-columns: 1fr; gap: 8px; }
+    .venue { justify-self: start; padding: 3px 10px; }
+    dl.skills { grid-template-columns: 1fr; gap: 2px; }
+    dl.skills dd { margin-bottom: 10px; }
+  }
+  @media print {
+    .kspace, .theme-toggle, .cv-btn { display: none; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <svg class="kspace" id="kspace" aria-hidden="true" preserveAspectRatio="none"></svg>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg></button>
+  <div class="hero-inner">
+    <img class="photo" src="profile.jpg" alt="Portrait of Jinho Joo">
+    <div>
+      <h1>Jinho Joo<span class="korean" lang="ko">주진호</span></h1>
+      <p class="role"><strong>Ph.D. student</strong> at Yonsei University, building deep learning methods for accelerated and quantitative MRI.</p>
+      <ul class="contact">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          <a href="mailto:jinho381@yonsei.ac.kr">jinho381@yonsei.ac.kr</a>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+          <a href="https://github.com/joojinho97">joojinho97</a>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          Seoul, Korea
+        </li>
+      </ul>
+      <a class="cv-btn" href="CV.pdf" download>Download CV (PDF)</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="about">
+    <h2>About</h2>
+    <div class="body">
+      <p>I am a Ph.D. student in the M.S.–Ph.D. integrated program in Electrical and Electronic Engineering at Yonsei University. I work on AI-driven medical image reconstruction and generative models.</p>
+      <p>My research focuses on accelerated MRI reconstruction and rapid quantitative MRI (qMRI) mapping, especially scan-specific and self-supervised methods that do not need fully sampled training data. My work has appeared at CVPR, MICCAI, and ISMRM.</p>
+      <ul class="interests">
+        <li>Accelerated MRI</li>
+        <li>Parallel imaging</li>
+        <li>Quantitative MRI</li>
+        <li>Zero-shot / self-supervised learning</li>
+        <li>Generative models</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="publications">
+    <h2>Publications</h2>
+    <div class="body">
+      <ol class="pubs">
+        <li class="pub">
+          <span class="venue prep">In prep.</span>
+          <div>
+            <p class="pub-title"><span class="acr">AZURE:</span> Attention-guided Zero-shot mUlti-contrast REconstruction for fast quantitative MRI</p>
+            <p class="authors"><b>J. Joo</b>, B. Bilgic, Y. Jun, D. Hwang</p>
+            <p class="desc">An attention-guided zero-shot framework for multi-contrast quantitative MRI reconstruction without fully sampled reference data.</p>
+          </div>
+        </li>
+        <li class="pub">
+          <span class="venue top">CVPR<br>2025</span>
+          <div>
+            <p class="pub-title"><span class="acr">AeSPa:</span> Attention-guided Self-supervised Parallel Imaging for MRI Reconstruction</p>
+            <p class="authors"><b>J. Joo</b>, H. Kim, H. Won, D. Lee, T. Eo, D. Hwang</p>
+            <p class="desc">A zero-shot, scan-specific self-supervised MRI reconstruction framework with better reconstruction quality and faster convergence on the fastMRI knee and brain datasets.</p>
+          </div>
+        </li>
+        <li class="pub">
+          <span class="venue">ISMRM<br>2025</span>
+          <div>
+            <p class="pub-title"><span class="acr">ZSSPI:</span> Zero-Shot Scan Specific Parallel Imaging MRI Reconstruction using Attention based mechanism</p>
+            <p class="authors"><b>J. Joo</b>, H. Kim, T. Eo, H. Won, D. Hwang</p>
+            <p class="desc">An attention-based scan-specific approach for robust parallel imaging under undersampled acquisitions.</p>
+          </div>
+        </li>
+        <li class="pub">
+          <span class="venue">ISMRM<br>2025</span>
+          <div>
+            <p class="pub-title"><span class="acr">KOMET:</span> K-space Optimal Masking for Efficient Training of Zero-shot MRI Reconstruction</p>
+            <p class="authors">H. Kim, <b>J. Joo</b>, D. Lee, D. Hwang, T. Eo</p>
+            <p class="desc">An optimal k-space masking strategy for more efficient and stable zero-shot MRI reconstruction training.</p>
+          </div>
+        </li>
+        <li class="pub">
+          <span class="venue top">MICCAI<br>2023</span>
+          <div>
+            <p class="pub-title">Twelve-Lead ECG Reconstruction from Single-Lead Signals Using Generative Adversarial Networks</p>
+            <p class="authors"><b>J. Joo</b>, G. Joo, Y. Kim, M.-N. Jin, J. Park, H. Im</p>
+            <p class="desc">A GAN-based framework that reconstructs 12-lead ECG from a single lead for wearable healthcare.</p>
+          </div>
+        </li>
+        <li class="pub">
+          <span class="venue">KIISE<br>2021</span>
+          <div>
+            <p class="pub-title">Implementation of an Image-Based Tree Form Measurement Program</p>
+            <p class="authors"><b>J. Joo</b>, G. Jang, E. Cheong, H. Im</p>
+            <p class="desc">Image-based software for automated tree form measurement that cuts manual effort.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="education">
+    <h2>Education</h2>
+    <div class="body">
+      <div class="entry">
+        <div class="entry-head"><h3>Yonsei University</h3><span class="when">Mar 2024 – Present</span></div>
+        <p class="sub">M.S.–Ph.D. Integrated Program, Electrical and Electronic Engineering · Seoul</p>
+        <ul>
+          <li>Research: scan-specific MRI reconstruction, with emphasis on parallel imaging and rapid qMRI mapping.</li>
+          <li>Coursework: Principles of MRI, Deep Learning, Computer Vision, Digital Signal Processing, Optimization.</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <div class="entry-head"><h3>Kangwon National University</h3><span class="when">Mar 2017 – Feb 2024</span></div>
+        <p class="sub">B.S., Electrical and Electronics Engineering &amp; Computer Science · Chuncheon</p>
+        <ul>
+          <li>Research: medical AI for biosignal reconstruction.</li>
+          <li>Coursework: Machine Learning, Signal Processing, Deep Learning, Digital Image Processing.</li>
+          <li>Military service, Republic of Korea Army (2018–2019).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2>Research experience</h2>
+    <div class="body">
+      <div class="entry">
+        <div class="entry-head"><h3>Graduate Researcher, Yonsei University</h3><span class="when">Mar 2024 – Present</span></div>
+        <ul>
+          <li>Deep learning for accelerated MRI reconstruction, focusing on self-supervised and scan-specific frameworks.</li>
+          <li>Developing rapid 3D qMRI mapping with a subject-specific reconstruction framework.</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <div class="entry-head"><h3>Research Intern, Kangwon National University</h3><span class="when">Mar 2022 – Feb 2024</span></div>
+        <ul>
+          <li>Recovered multi-lead ECG signals from limited wearable sensor inputs using deep generative models.</li>
+          <li>Built biosignal processing and reconstruction pipelines, including GAN-based physiological signal models.</li>
+          <li>Worked on applied AI projects in image-based measurement software and data-driven analysis systems.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="awards">
+    <h2>Awards</h2>
+    <div class="body">
+      <div class="entry">
+        <div class="entry-head"><h3>Excellence Award, Software Startup Challenge Competition</h3></div>
+        <ul><li>Built a web-based streaming platform for performing arts, recognized among competing student startup projects.</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="body">
+      <dl class="skills">
+        <dt>Languages</dt><dd>Korean (native), English (fluent)</dd>
+        <dt>Programming</dt><dd>Python, C, C++, Java, MySQL</dd>
+        <dt>Web</dt><dd>HTML, CSS, JavaScript</dd>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>© <span id="year">2026</span> Jinho Joo</footer>
+
+<script>
+  // Draw a Cartesian k-space undersampling mask: fully sampled center lines + random outer lines
+  (function () {
+    const svg = document.getElementById('kspace');
+    const N = 160, center = 14;
+    let seed = 7;
+    const rand = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    svg.setAttribute('viewBox', `0 0 ${N} 100`);
+    let out = '';
+    for (let i = 0; i < N; i++) {
+      const d = Math.abs(i - N / 2);
+      const keep = d < center / 2 || rand() < 0.28 * Math.exp(-d / 70) + 0.08;
+      if (keep) {
+        const op = d < center / 2 ? 0.9 : 0.55;
+        out += `<rect x="${i}" y="0" width="0.55" height="100" fill="var(--mask)" opacity="${op}"/>`;
+      }
+    }
+    svg.innerHTML = out;
+  })();
+
+  // Theme toggle
+  (function () {
+    const root = document.documentElement, btn = document.getElementById('themeToggle');
+    try { const t = localStorage.getItem('theme'); if (t) root.dataset.theme = t; } catch (e) {}
+    btn.addEventListener('click', () => {
+      const dark = root.dataset.theme ? root.dataset.theme === 'dark'
+                 : matchMedia('(prefers-color-scheme: dark)').matches;
+      root.dataset.theme = dark ? 'light' : 'dark';
+      try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  })();
+</script>
+</body>
+</html>
