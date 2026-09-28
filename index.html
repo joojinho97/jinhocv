@@ -18,19 +18,19 @@
     --line: #DDE3EB;
     --azure: #1F6FEB;
     --azure-soft: #E5EFFE;
-    --mask: #1F6FEB;
+    
     --serif: "IBM Plex Serif", Georgia, "Times New Roman", serif;
     --sans: "IBM Plex Sans", -apple-system, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       --bg: #0E1624; --surface: #152033; --ink: #E6ECF5; --muted: #98A4B6;
-      --line: #26344B; --azure: #6AA4FF; --azure-soft: #1A2B47; --mask: #6AA4FF;
+      --line: #26344B; --azure: #6AA4FF; --azure-soft: #1A2B47;
     }
   }
   :root[data-theme="dark"] {
     --bg: #0E1624; --surface: #152033; --ink: #E6ECF5; --muted: #98A4B6;
-    --line: #26344B; --azure: #6AA4FF; --azure-soft: #1A2B47; --mask: #6AA4FF;
+    --line: #26344B; --azure: #6AA4FF; --azure-soft: #1A2B47;
   }
 
   * { box-sizing: border-box; }
@@ -45,7 +45,6 @@
 
   /* ---------- Hero with k-space mask ---------- */
   .hero { position: relative; border-bottom: 1px solid var(--line); overflow: hidden; }
-  .kspace { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .16; pointer-events: none; }
   .hero-inner {
     position: relative; max-width: 1040px; margin: 0 auto;
     padding: 72px 24px 56px; display: grid; grid-template-columns: 168px 1fr; gap: 40px; align-items: end;
@@ -94,7 +93,10 @@
   .entry li::marker { color: var(--azure); }
 
   /* Publications */
-  .pubs { list-style: none; margin: 0; padding: 0; }
+  .pubs { list-style: none; margin: 0 0 36px; padding: 0; }
+  .pubs:last-child { margin-bottom: 0; }
+  .pub-group { font-size: .95rem; font-weight: 600; color: var(--muted); margin: 0 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+  .pub-group + .pubs .pub:first-child { padding-top: 0; }
   .pub { display: grid; grid-template-columns: 96px 1fr; gap: 18px; padding: 18px 0; border-top: 1px solid var(--line); }
   .pub:first-child { border-top: 0; padding-top: 0; }
   .venue {
@@ -131,7 +133,7 @@
     dl.skills dd { margin-bottom: 10px; }
   }
   @media print {
-    .kspace, .theme-toggle, .cv-btn { display: none; }
+    .theme-toggle, .cv-btn { display: none; }
     body { background: #fff; }
   }
 </style>
@@ -139,7 +141,6 @@
 <body>
 
 <header class="hero">
-  <svg class="kspace" id="kspace" aria-hidden="true" preserveAspectRatio="none"></svg>
   <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg></button>
   <div class="hero-inner">
     <img class="photo" src="profile.jpg" alt="Portrait of Jinho Joo">
@@ -184,6 +185,7 @@
   <section id="publications">
     <h2>Publications</h2>
     <div class="body">
+      <h3 class="pub-group">Conference</h3>
       <ol class="pubs">
         <li class="pub">
           <span class="venue prep">In prep.</span>
@@ -202,6 +204,17 @@
           </div>
         </li>
         <li class="pub">
+          <span class="venue top">MICCAI<br>2023</span>
+          <div>
+            <p class="pub-title">Twelve-Lead ECG Reconstruction from Single-Lead Signals Using Generative Adversarial Networks</p>
+            <p class="authors"><b>J. Joo</b>, G. Joo, Y. Kim, M.-N. Jin, J. Park, H. Im</p>
+            <p class="desc">A GAN-based framework that reconstructs 12-lead ECG from a single lead for wearable healthcare.</p>
+          </div>
+        </li>
+      </ol>
+      <h3 class="pub-group">Abstracts</h3>
+      <ol class="pubs">
+        <li class="pub">
           <span class="venue">ISMRM<br>2025</span>
           <div>
             <p class="pub-title"><span class="acr">ZSSPI:</span> Zero-Shot Scan Specific Parallel Imaging MRI Reconstruction using Attention based mechanism</p>
@@ -215,22 +228,6 @@
             <p class="pub-title"><span class="acr">KOMET:</span> K-space Optimal Masking for Efficient Training of Zero-shot MRI Reconstruction</p>
             <p class="authors">H. Kim, <b>J. Joo</b>, D. Lee, D. Hwang, T. Eo</p>
             <p class="desc">An optimal k-space masking strategy for more efficient and stable zero-shot MRI reconstruction training.</p>
-          </div>
-        </li>
-        <li class="pub">
-          <span class="venue top">MICCAI<br>2023</span>
-          <div>
-            <p class="pub-title">Twelve-Lead ECG Reconstruction from Single-Lead Signals Using Generative Adversarial Networks</p>
-            <p class="authors"><b>J. Joo</b>, G. Joo, Y. Kim, M.-N. Jin, J. Park, H. Im</p>
-            <p class="desc">A GAN-based framework that reconstructs 12-lead ECG from a single lead for wearable healthcare.</p>
-          </div>
-        </li>
-        <li class="pub">
-          <span class="venue">KIISE<br>2021</span>
-          <div>
-            <p class="pub-title">Implementation of an Image-Based Tree Form Measurement Program</p>
-            <p class="authors"><b>J. Joo</b>, G. Jang, E. Cheong, H. Im</p>
-            <p class="desc">Image-based software for automated tree form measurement that cuts manual effort.</p>
           </div>
         </li>
       </ol>
@@ -263,6 +260,15 @@
   <section id="experience">
     <h2>Research experience</h2>
     <div class="body">
+      <div class="entry">
+        <div class="entry-head"><h3>Visiting Student, Martinos Center for Biomedical Imaging</h3><span class="when">Sep 2026 – Mar 2027</span></div>
+        <p class="sub">Massachusetts General Hospital, Harvard Medical School · Boston, MA</p>
+        <ul>
+          <li>Research on rapid quantitative MRI mapping, aiming to shorten scan times while keeping accurate tissue parameter estimates.</li>
+          <li>Developing zero-shot MRI reconstruction methods that learn directly from each undersampled scan, with no fully sampled training data.</li>
+          <li>Formulating multi-contrast qMRI reconstruction as an inverse problem, combining physics-based forward models with deep learning priors.</li>
+        </ul>
+      </div>
       <div class="entry">
         <div class="entry-head"><h3>Graduate Researcher, Yonsei University</h3><span class="when">Mar 2024 – Present</span></div>
         <ul>
@@ -306,25 +312,6 @@
 <footer>© <span id="year">2026</span> Jinho Joo</footer>
 
 <script>
-  // Draw a Cartesian k-space undersampling mask: fully sampled center lines + random outer lines
-  (function () {
-    const svg = document.getElementById('kspace');
-    const N = 160, center = 14;
-    let seed = 7;
-    const rand = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-    svg.setAttribute('viewBox', `0 0 ${N} 100`);
-    let out = '';
-    for (let i = 0; i < N; i++) {
-      const d = Math.abs(i - N / 2);
-      const keep = d < center / 2 || rand() < 0.28 * Math.exp(-d / 70) + 0.08;
-      if (keep) {
-        const op = d < center / 2 ? 0.9 : 0.55;
-        out += `<rect x="${i}" y="0" width="0.55" height="100" fill="var(--mask)" opacity="${op}"/>`;
-      }
-    }
-    svg.innerHTML = out;
-  })();
-
   // Theme toggle
   (function () {
     const root = document.documentElement, btn = document.getElementById('themeToggle');
